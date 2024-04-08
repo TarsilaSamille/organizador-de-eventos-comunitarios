@@ -36,4 +36,4 @@ jobs:
         with:
           project: "trsilasamil-organizador-63"
           entrypoint: "./backend/server.js"
-          root: ""
+          root: "."
