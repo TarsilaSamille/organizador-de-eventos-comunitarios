@@ -1,3 +1,3 @@
 module.exports = {
-  entry: "./server.js",
+  entry: "./api/index.js",
 };
