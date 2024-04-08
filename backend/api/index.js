@@ -22,7 +22,7 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Error connecting to MongoDB:", err));
 
-const User = require("./models/User"); // Não é necessário se você não estiver usando Mongoose
+const User = require("./models/User");
 
 app.post("/register", async (req, res) => {
   try {
