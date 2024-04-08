@@ -32,11 +32,11 @@ jobs:
         run: "yarn install"
 
       - name: Build step
-        run: "yarn start"
+        run: "yarn build"
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
           project: "trsilasamil-organizador-63"
           entrypoint: "/backend/server.js"
-          root: "backend"
+          root: "/backend"
