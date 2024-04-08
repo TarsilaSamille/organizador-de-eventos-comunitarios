@@ -35,5 +35,5 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "trsilasamil-organizador-63"
-          entrypoint: "./server.js"
-          root: "/backend"
+          entrypoint: "./backend/server.js"
+          root: "/"
