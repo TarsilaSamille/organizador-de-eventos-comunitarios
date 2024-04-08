@@ -21,10 +21,12 @@
     "path-browserify": "^1.0.1",
     "stream-browserify": "^3.0.0",
     "vercel": "^33.7.0",
-    "webpack-cli": "^4.1.4"
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12"  
   },
   "devDependencies": {
     "nodemon": "^3.1.0",
-    "webpack": "^4.91.0"
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12"
   }
 }
