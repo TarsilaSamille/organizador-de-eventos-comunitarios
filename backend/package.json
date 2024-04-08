@@ -2,9 +2,9 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./api/index.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "nodemon ./api/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production"
   },
@@ -20,6 +20,7 @@
     "mongoose": "^8.3.0",
     "path-browserify": "^1.0.1",
     "stream-browserify": "^3.0.0",
+    "vercel": "^33.7.0",
     "webpack-cli": "^4.1.4"
   },
   "devDependencies": {
