@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Create an Axios instance
 const api = axios.create({
-  baseURL: "http://localhost:5000/api", // Your API base URL
+  baseURL: process.env.REACT_APP_API_BASE_URL, // Your API base URL
 });
 
 // Add a request interceptor
