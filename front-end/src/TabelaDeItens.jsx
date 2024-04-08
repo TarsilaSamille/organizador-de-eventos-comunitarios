@@ -109,7 +109,9 @@ const TabelaDeItens = ({ eventoId }) => {
 
   const handleGenerateListaDeAjudaForAll = async () => {
     try {
-      await api.post("/api/generateListaDeAjudaForAll/" + eventoId);
+      await api.post(
+        "/api/listaDeAjuda/generateListaDeAjudaForAll/" + eventoId
+      );
       alert("Lista de Ajuda gerada com sucesso para todos os itens");
     } catch (error) {
       console.error("Error generating Lista de Ajuda for all items:", error);

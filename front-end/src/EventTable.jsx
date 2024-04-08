@@ -45,7 +45,7 @@ const EventTable = () => {
     };
 
     fetchEventos();
-  }, [open]);
+  }, [open, userId]);
 
   const handleDeleteEvento = async (eventoId) => {
     try {
