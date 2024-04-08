@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Button, Box } from "@mui/material";
-import axios from "axios"; // Certifique-se de que o axios está instalado
 import { useNavigate } from "react-router-dom";
+import api from "./axiosInstance";
 
 const CreateUserForm = () => {
   const [username, setUsername] = useState("");
@@ -12,7 +12,7 @@ const CreateUserForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/register", {
+      const response = await api.post("/register", {
         username,
         password,
       });

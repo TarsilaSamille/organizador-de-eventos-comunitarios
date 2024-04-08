@@ -35,7 +35,7 @@ const TabelaDeItens = ({ eventoId }) => {
   useEffect(() => {
     const fetchItens = async () => {
       try {
-        const response = await api.get("/itens/" + eventoId);
+        const response = await api.get("/api/itens/" + eventoId);
         setItens(response.data);
       } catch (error) {
         console.error(error);
@@ -52,7 +52,7 @@ const TabelaDeItens = ({ eventoId }) => {
 
   const confirmDelete = async () => {
     try {
-      await api.delete(`/itens/${deleteItemId}`);
+      await api.delete(`/api/itens/${deleteItemId}`);
       setItens(itens.filter((item) => item._id !== deleteItemId));
     } catch (error) {
       console.error(error);
@@ -109,7 +109,7 @@ const TabelaDeItens = ({ eventoId }) => {
 
   const handleGenerateListaDeAjudaForAll = async () => {
     try {
-      await api.post("/generateListaDeAjudaForAll/" + eventoId);
+      await api.post("/api/generateListaDeAjudaForAll/" + eventoId);
       alert("Lista de Ajuda gerada com sucesso para todos os itens");
     } catch (error) {
       console.error("Error generating Lista de Ajuda for all items:", error);

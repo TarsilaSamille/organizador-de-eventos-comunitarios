@@ -18,7 +18,7 @@ const PaginaDeDoacao = () => {
   useEffect(() => {
     const fetchItens = async () => {
       try {
-        let url = ` /listaDeAjuda/${eventoId}`;
+        let url = `/api/listaDeAjuda/${eventoId}`;
         if (grupoId) {
           url += `/${grupoId}`; // Append grupoId to the URL if it's provided
         }
@@ -70,7 +70,7 @@ const PaginaDeDoacao = () => {
         telefone: brotherPhone,
         pixOuEntrega: selectedOptionsString,
       }));
-      await api.post(" /atualizarItens", itemsToUpdate);
+      await api.post("/api/atualizarItens", itemsToUpdate);
       alert("Itens atualizados com sucesso");
     } catch (error) {
       console.error("Error updating items:", error);

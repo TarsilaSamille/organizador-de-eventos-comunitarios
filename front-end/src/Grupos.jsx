@@ -26,7 +26,7 @@ const Grupos = ({ eventoId }) => {
   useEffect(() => {
     const fetchGrupos = async () => {
       try {
-        const response = await api.get(`/grupos/${eventoId}`);
+        const response = await api.get(`/api/grupos/${eventoId}`);
         setGrupos(response.data);
       } catch (error) {
         console.error("Error fetching grupos:", error);

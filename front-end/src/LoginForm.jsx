@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useAuth, loginSuccess } from "./context/AuthContext"; // Ajuste o caminho de importação conforme necessário
 import { Button, TextField, Box } from "@mui/material";
-import axios from "axios"; // Certifique-se de que o axios está importado
+import api from "./axiosInstance";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
@@ -18,7 +18,7 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/login", {
+      const response = await api.post("/login", {
         username,
         password,
       });

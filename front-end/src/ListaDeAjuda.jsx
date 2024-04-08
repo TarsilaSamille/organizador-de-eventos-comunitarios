@@ -36,7 +36,7 @@ const ListaDeAjuda = ({ eventoId }) => {
   useEffect(() => {
     const fetchGrupos = async () => {
       try {
-        const response = await api.get(`/grupos/${eventoId}`);
+        const response = await api.get(`/api/grupos/${eventoId}`);
         setGrupos(response.data);
       } catch (error) {
         console.error("Error fetching grupos:", error);
@@ -49,7 +49,7 @@ const ListaDeAjuda = ({ eventoId }) => {
   useEffect(() => {
     const fetchItens = async () => {
       try {
-        const response = await api.get("/listaDeAjuda/" + eventoId);
+        const response = await api.get("/api/listaDeAjuda/" + eventoId);
         setItens(response.data);
       } catch (error) {
         console.error("Error fetching Lista de Ajuda:", error);
@@ -67,7 +67,7 @@ const ListaDeAjuda = ({ eventoId }) => {
 
   const handleDelete = async (id) => {
     try {
-      await api.delete(`/listaDeAjuda/${id}`);
+      await api.delete(`/api/listaDeAjuda/${id}`);
       setItens(itens.filter((item) => item._id !== id));
     } catch (error) {
       console.error("Error deleting item:", error);
@@ -80,7 +80,7 @@ const ListaDeAjuda = ({ eventoId }) => {
     event.preventDefault();
     try {
       if (isEditing) {
-        await api.put(`/listaDeAjuda/${editingItem._id}`, editingItem);
+        await api.put(`/api/listaDeAjuda/${editingItem._id}`, editingItem);
         setItens(
           itens.map((item) =>
             item._id === editingItem._id ? editingItem : item
@@ -103,7 +103,7 @@ const ListaDeAjuda = ({ eventoId }) => {
 
   const handleClearList = async () => {
     try {
-      await api.delete("/listaDeAjuda/all");
+      await api.delete("/api/listaDeAjuda/all");
       setItens([]); // Clear the local state
       alert("Toda a lista de ajuda foi excluída com sucesso");
     } catch (error) {

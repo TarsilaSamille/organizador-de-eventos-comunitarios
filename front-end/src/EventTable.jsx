@@ -37,7 +37,7 @@ const EventTable = () => {
   useEffect(() => {
     const fetchEventos = async () => {
       try {
-        const response = await api.get("/eventos/all/" + userId);
+        const response = await api.get("/api/eventos/all/" + userId);
         console.log(response);
         setEventos(response.data);
       } catch (error) {
@@ -50,7 +50,7 @@ const EventTable = () => {
 
   const handleDeleteEvento = async (eventoId) => {
     try {
-      await api.delete(`/eventos/${eventoId}`);
+      await api.delete(`/api/eventos/${eventoId}`);
       const updatedEventos = eventos.filter((evento) => evento.id !== eventoId);
       setEventos(updatedEventos);
       handleClose(); // Close the modal

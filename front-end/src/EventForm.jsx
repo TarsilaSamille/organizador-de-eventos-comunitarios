@@ -36,7 +36,7 @@ const EventForm = () => {
   useEffect(() => {
     const fetchEventData = async () => {
       try {
-        const response = await api.get(`/eventos/${id}`, userId);
+        const response = await api.get(`/api/eventos/${id}`, userId);
         setFormData(response.data); // Assuming the response data is the event object
       } catch (error) {
         console.error("Error fetching event data:", error);
@@ -59,7 +59,7 @@ const EventForm = () => {
 
   const handleAddEvento = async (evento) => {
     try {
-      await api.post("/eventos", evento).then((response) => {
+      await api.post("/api/eventos", evento).then((response) => {
         console.log(response);
         navigate("/evento/" + response._id);
       });
@@ -70,7 +70,7 @@ const EventForm = () => {
 
   const handleEditEvento = async (evento) => {
     try {
-      await api.put(`/eventos/${evento._id}`, evento).then((response) => {
+      await api.put(`/api/eventos/${evento._id}`, evento).then((response) => {
         console.log(response);
       });
       alert("Evento atualizado com sucesso");
