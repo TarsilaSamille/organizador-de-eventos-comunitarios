@@ -56,7 +56,7 @@ const PaginaDeDoacao = () => {
         ...novaDoacao,
       }));
 
-      await api.post("/api/atualizarItens", itemsToUpdate);
+      await api.post("/api/itens/atualizar", itemsToUpdate);
       alert("Itens atualizados com sucesso");
     } catch (error) {
       console.error("Error updating items:", error);
