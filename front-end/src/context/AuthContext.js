@@ -37,23 +37,3 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => useContext(AuthContext);
-
-// export function loginSuccess(token, userId) {
-//   setIsAuthenticated(true);
-//   localStorage.setItem("authToken", token);
-//   localStorage.setItem("userId", userId);
-// }
-
-// export function logout() {
-//   setIsAuthenticated(false);
-//   localStorage.removeItem("authToken");
-//   localStorage.removeItem("userId");
-// }
-
-// export const authToken = () => {
-//   return localStorage.getItem("authToken");
-// };
-
-// export const getUserId = () => {
-//   return localStorage.getItem("userId");
-// };
