@@ -11,7 +11,6 @@ api.interceptors.request.use(
   (config) => {
     // Retrieve the token from local storage
     const token = localStorage.getItem("authToken");
-
     // If the token exists, add it to the request headers
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;

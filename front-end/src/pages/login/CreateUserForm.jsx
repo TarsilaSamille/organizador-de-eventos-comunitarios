@@ -12,11 +12,10 @@ const CreateUserForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post("/register", {
+      await api.post("/register", {
         username,
         password,
       });
-      console.log(response.data);
       alert("usuario criado, indo para o loguin");
       setUsername("");
       setPassword("");

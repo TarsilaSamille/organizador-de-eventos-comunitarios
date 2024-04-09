@@ -36,8 +36,7 @@ const EventTable = () => {
   useEffect(() => {
     const fetchEventos = async () => {
       try {
-        const response = await api.get("/api/eventos/all/" + userId);
-        console.log(response);
+        const response = await api.get("/api/eventos/all");
         setEventos(response.data);
       } catch (error) {
         console.error("Error fetching eventos:", error);

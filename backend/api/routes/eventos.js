@@ -38,9 +38,9 @@ router.get("/", authenticateToken, async (req, res) => {
   }
 });
 
-router.get("/all/:userId", authenticateToken, async (req, res) => {
+router.get("/all", authenticateToken, async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const userId = req.user.userId;
     const eventos = await Evento.find({ userId });
     res.json(eventos);
   } catch (error) {

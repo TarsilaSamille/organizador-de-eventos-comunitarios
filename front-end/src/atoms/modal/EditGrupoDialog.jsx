@@ -18,11 +18,10 @@ const EditGrupoDialog = ({ open, grupo, onClose }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const updatedGrupo = await api.put(
+      await api.put(
         `/api/grupos/${grupo._id}`,
         localGrupo
       );
-      console.log(updatedGrupo);
       onClose(); // Feche o diálogo
     } catch (error) {
       console.error("Error updating grupo:", error);

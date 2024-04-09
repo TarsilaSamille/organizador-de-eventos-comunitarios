@@ -16,8 +16,7 @@ const AdicionarItem = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await api.post("/api/itens", novoItem);
-      console.log(response.data);
+      await api.post("/api/itens", novoItem);
       setNovoItem({
         categoria: "",
         descricao: "",

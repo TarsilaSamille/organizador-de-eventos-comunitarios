@@ -15,7 +15,6 @@ import {
 import { styled } from "@mui/system";
 import ConfirmationModal from "../atoms/modal/ConfirmationModal";
 import DefaultEventoButton from "../atoms/button/DefaultEventoButton";
-import { authToken } from "../context/AuthContext";
 import api from "../context/axiosInstance";
 
 const TabelaDeItens = ({ eventoId }) => {
@@ -41,7 +40,6 @@ const TabelaDeItens = ({ eventoId }) => {
         console.error(error);
       }
     };
-    console.log(authToken());
     fetchItens();
   }, [eventoId, isModalOpen]);
 
