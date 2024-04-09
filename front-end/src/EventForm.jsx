@@ -13,10 +13,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import api from "./axiosInstance";
 import TabbedEventMenu from "./TabbedEventMenu";
 import { getUserId } from "./context/AuthContext";
+import useRequireAuth from "./hooks/useRequireAuth"; // Ajuste o caminho de importação conforme necessário
 
 // Inside your EventForm component
 
 const EventForm = () => {
+  useRequireAuth();
+
   const navigate = useNavigate();
   const { id } = useParams();
   const userId = getUserId();

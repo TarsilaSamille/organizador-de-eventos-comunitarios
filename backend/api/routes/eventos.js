@@ -2,6 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 const Evento = require("../models/Evento");
+const Grupo = require("../models/Grupo");
+const Item = require("../models/Item");
+const ListaDeAjuda = require("../models/ListaDeAjuda");
+
 const authenticateToken = require("./utils");
 
 router.post("/", authenticateToken, async (req, res) => {

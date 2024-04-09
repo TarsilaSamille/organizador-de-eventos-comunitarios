@@ -6,7 +6,7 @@ import { Button } from "@mui/material";
 const DefaultEventoButton = ({ eventoId }) => {
   const adicionarEventoPadrao = async () => {
     try {
-      await api.post("/api/adicionarEventoPadrao/" + eventoId);
+      await api.post("/api/eventos/adicionarEventoPadrao/" + eventoId);
       alert("Evento padrão adicionada com sucesso");
       // Optionally, refresh the "ListaDeAjuda" component or the entire page
     } catch (error) {

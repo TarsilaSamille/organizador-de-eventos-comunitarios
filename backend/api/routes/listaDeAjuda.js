@@ -88,73 +88,76 @@ router.post(
   "/generateListaDeAjudaForAll/:eventoId",
   authenticateToken,
   async (req, res) => {
+    const { eventoId } = req.params;
     try {
-      const items = await Item.find({ eventoId: req.params.eventoId });
-      const grupos = await Grupo.find({ eventoId: req.params.eventoId });
+      const items = await Item.find({ eventoId: eventoId });
+      const grupos = await Grupo.find({ eventoId: eventoId });
 
-      if (items.length === 0) {
-        return res
-          .status(404)
-          .json({ message: "Nenhum item encontrado para o evento fornecido" });
-      }
+      validateItemsAndGroups(items, grupos);
 
-      if (grupos.length === 0) {
-        return res
-          .status(404)
-          .json({ message: "Nenhum grupo encontrado para o evento fornecido" });
-      }
+      const totalValueItems = calculateTotalValue(items);
 
-      const totalValueItems = items.reduce(
-        (total, item) => total + item.precoUnitario * item.quantidade,
-        0
+      assignItemsToGroups(
+        items,
+        grupos,
+        totalValueItems / grupos.length,
+        eventoId
       );
-
-      if (isNaN(totalValueItems) || totalValueItems <= 0) {
-        return res.status(400).json({
-          message: "Valor total dos itens inválido ou não disponível",
-        });
-      }
-
-      console.log(totalValueItems);
-      const totalGroups = grupos.length;
-      const valuePerGroup = totalValueItems / totalGroups;
-      let assignedValue = 0;
-      let gruposIndex = 0;
-
-      for (const item of items) {
-        for (let i = 1; i <= item.quantidade; i++) {
-          if (assignedValue >= valuePerGroup && gruposIndex < grupos.length) {
-            assignedValue = 0;
-            gruposIndex++;
-          }
-          const listaDeAjudaEntry = new ListaDeAjuda({
-            item: `${item.descricao} (${i})`,
-            preco: item.precoUnitario,
-            eventoId: req.params.eventoId,
-            grupoId: grupos[gruposIndex]._id,
-            statusEntrega: false,
-          });
-          await listaDeAjudaEntry.save();
-          assignedValue += item.precoUnitario;
-        }
-      }
-
-      console.log("All items processed");
-
-      const listaDeAjuda = await ListaDeAjuda.find({
-        eventoId: req.params.eventoId,
-      });
 
       res.json({
         message: "Lista de Ajuda gerada com sucesso para todos os itens",
       });
     } catch (error) {
       console.error(error);
-      res
-        .status(500)
-        .json({ message: "Erro ao gerar Lista de Ajuda para todos os itens" });
+      res.status(500).json({
+        message: "Erro ao gerar Lista de Ajuda para todos os itens",
+        error,
+      });
     }
   }
 );
+
+const validateItemsAndGroups = (items, grupos) => {
+  if (items.length === 0) {
+    throw new Error("Nenhum item encontrado para o evento fornecido");
+  }
+  if (grupos.length === 0) {
+    throw new Error("Nenhum grupo encontrado para o evento fornecido");
+  }
+};
+
+const calculateTotalValue = (items) => {
+  const totalValueItems = items.reduce(
+    (total, item) => total + item.precoUnitario * item.quantidade,
+    0
+  );
+  if (isNaN(totalValueItems) || totalValueItems <= 0) {
+    throw new Error("Valor total dos itens inválido ou não disponível");
+  }
+  return totalValueItems;
+};
+
+const assignItemsToGroups = async (items, grupos, valuePerGroup, eventoId) => {
+  let assignedValue = 0;
+  let gruposIndex = 0;
+
+  for (const item of items) {
+    for (let i = 1; i <= item.quantidade; i++) {
+      if (assignedValue >= valuePerGroup && gruposIndex < grupos.length) {
+        assignedValue = 0;
+        gruposIndex++;
+      }
+      const listaDeAjudaEntry = new ListaDeAjuda({
+        item: `${item.descricao} (${i})`,
+        preco: item.precoUnitario,
+        eventoId,
+        grupoId: grupos[gruposIndex]._id,
+        statusEntrega: false,
+      });
+      await listaDeAjudaEntry.save();
+      assignedValue += item.precoUnitario;
+    }
+  }
+};
 
 module.exports = router;
