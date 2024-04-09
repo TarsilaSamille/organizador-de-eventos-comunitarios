@@ -9,7 +9,7 @@ import {
   Grid,
   InputLabel,
 } from "@mui/material";
-import api from "./axiosInstance";
+import api from "../../context/axiosInstance";
 import { CirclePicker } from "react-color";
 
 const EditGrupoDialog = ({ open, grupo, onClose }) => {

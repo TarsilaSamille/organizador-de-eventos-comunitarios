@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Checkbox, TextField, Button } from "@mui/material";
-import api from "./axiosInstance";
+import {
+  Box,
+  DataGrid,
+  Typography,
+  Checkbox,
+  TextField,
+  Button,
+} from "@mui/material";
+
+import api from "../../context/axiosInstance";
 import { useParams } from "react-router-dom";
 
 const PaginaDeDoacao = () => {
@@ -20,7 +28,7 @@ const PaginaDeDoacao = () => {
       try {
         let url = `/api/listaDeAjuda/${eventoId}`;
         if (grupoId) {
-          url += `/${grupoId}`; // Append grupoId to the URL if it's provided
+          url += `/${grupoId}`;
         }
         const response = await api.get(url);
         setItens(response.data);

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import TabelaDeItens from "./TabelaDeItens"; // Adjust the import path as necessary
-import ListaDeAjuda from "./ListaDeAjuda"; // Adjust the import path as necessary
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Grupos from "./Grupos"; // Ajuste o caminho conforme necessário
-import LinkParaPaginaDeDoacao from "./LinkParaPaginaDeDoacao"; // Adjust the import path as necessary
+import Grupos from "../organisms/Grupos"; // Ajuste o caminho conforme necessário
+import LinkParaPaginaDeDoacao from "../organisms/LinkParaPaginaDeDoacao"; // Adjust the import path as necessary
+import TabelaDeItens from "../organisms/TabelaDeItens"; // Adjust the import path as necessary
+import ListaDeAjuda from "../organisms/ListaDeAjuda"; // Adjust the import path as necessary
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;

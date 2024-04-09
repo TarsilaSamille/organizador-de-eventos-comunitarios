@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "./axiosInstance";
+import api from "../context/axiosInstance.js";
 import {
   Typography,
   Button,
@@ -7,7 +7,7 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-import EditGrupoDialog from "./EditGrupoDialog.jsx";
+import EditGrupoDialog from "../atoms/modal/EditGrupoDialog.jsx";
 
 const Grupos = ({ eventoId }) => {
   const [grupos, setGrupos] = useState([]);

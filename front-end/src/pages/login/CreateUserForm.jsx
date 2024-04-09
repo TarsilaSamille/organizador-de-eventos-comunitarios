@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import api from "./axiosInstance";
+import api from "../../context/axiosInstance";
 
 const CreateUserForm = () => {
   const [username, setUsername] = useState("");

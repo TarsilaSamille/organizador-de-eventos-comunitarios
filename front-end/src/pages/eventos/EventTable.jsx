@@ -17,10 +17,10 @@ import {
   DialogTitle,
   Grid,
 } from "@mui/material";
-import api from "./axiosInstance";
+import api from "../../context/axiosInstance";
 import { Link, useNavigate } from "react-router-dom";
-import useRequireAuth from "./hooks/useRequireAuth"; // Ajuste o caminho de importação conforme necessário
-import { getUserId } from "./context/AuthContext";
+import useRequireAuth from "../../context/hooks/useRequireAuth"; // Ajuste o caminho de importação conforme necessário
+import { getUserId } from "../../context/AuthContext";
 
 const EventTable = () => {
   useRequireAuth();

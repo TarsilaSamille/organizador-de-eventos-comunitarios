@@ -1,15 +1,15 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import TabelaDeItens from "./TabelaDeItens";
-import ListaDeAjuda from "./ListaDeAjuda";
-import PaginaDeDoacao from "./PaginaDeDoacao";
-import EventTable from "./EventTable";
-import EventForm from "./EventForm";
-import Menu from "./Menu";
-import ThemeProvider from "./theme";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import CreateUserForm from "./pages/login/CreateUserForm";
+import EventForm from "./pages/eventos/EventForm";
+import EventTable from "./pages/eventos/EventTable";
+import ListaDeAjuda from "./organisms/ListaDeAjuda";
+import LoginForm from "./pages/login/LoginForm";
+import Menu from "./molecules/Menu";
+import PaginaDeDoacao from "./pages/paginaDeDoacao/PaginaDeDoacao";
+import TabelaDeItens from "./organisms/TabelaDeItens";
 import { AuthProvider } from "./context/AuthContext";
-import LoginForm from "./LoginForm";
-import CreateUserForm from "./CreateUserForm";
+import ThemeProvider from "./utils/theme";
 
 function App() {
   return (

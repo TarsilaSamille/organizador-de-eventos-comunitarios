@@ -1,8 +1,8 @@
 // src/components/LoginForm.jsx
 import React, { useState } from "react";
-import { useAuth, loginSuccess } from "./context/AuthContext"; // Ajuste o caminho de importação conforme necessário
+import { useAuth, loginSuccess } from "../../context/AuthContext"; // Ajuste o caminho de importação conforme necessário
 import { Button, TextField, Box } from "@mui/material";
-import api from "./axiosInstance";
+import api from "../../context/axiosInstance";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {

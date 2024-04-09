@@ -16,10 +16,7 @@ const AdicionarItem = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/itens",
-        novoItem
-      );
+      const response = await api.post("/api/itens", novoItem);
       console.log(response.data);
       setNovoItem({
         categoria: "",

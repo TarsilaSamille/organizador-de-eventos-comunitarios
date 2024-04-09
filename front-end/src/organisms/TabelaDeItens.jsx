@@ -13,10 +13,10 @@ import {
   Box,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import ConfirmationModal from "./ConfirmationModal";
-import DefaultEventoButton from "./DefaultEventoButton";
-import { authToken } from "./context/AuthContext";
-import api from "./axiosInstance";
+import ConfirmationModal from "../atoms/modal/ConfirmationModal";
+import DefaultEventoButton from "../atoms/button/DefaultEventoButton";
+import { authToken } from "../context/AuthContext";
+import api from "../context/axiosInstance";
 
 const TabelaDeItens = ({ eventoId }) => {
   const [itens, setItens] = useState([]);

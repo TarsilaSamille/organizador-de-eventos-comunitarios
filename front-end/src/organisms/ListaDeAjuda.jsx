@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "./axiosInstance";
+import api from "../context/axiosInstance";
 import {
   Table,
   TableBody,
@@ -27,7 +27,7 @@ const ListaDeAjuda = ({ eventoId }) => {
     nomeDoIrmao: "",
     telefone: "",
     metodoPagamentoOuEntrega: "",
-    statusEntrega: false, // Ensure this property is initialized
+    statusEntrega: false,
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
