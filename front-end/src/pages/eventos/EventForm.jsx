@@ -12,7 +12,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../context/axiosInstance";
 import TabbedEventMenu from "../../molecules/TabbedEventMenu";
-import { getUserId } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import useRequireAuth from "../../context/hooks/useRequireAuth"; // Ajuste o caminho de importação conforme necessário
 
 // Inside your EventForm component
@@ -22,6 +22,7 @@ const EventForm = () => {
 
   const navigate = useNavigate();
   const { id } = useParams();
+  const { getUserId } = useAuth();
   const userId = getUserId();
   const [formData, setFormData] = useState(
     id || {

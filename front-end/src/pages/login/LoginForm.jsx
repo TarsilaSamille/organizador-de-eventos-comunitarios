@@ -1,6 +1,6 @@
 // src/components/LoginForm.jsx
 import React, { useState } from "react";
-import { useAuth, loginSuccess } from "../../context/AuthContext"; // Ajuste o caminho de importação conforme necessário
+import { useAuth } from "../../context/AuthContext";
 import { Button, TextField, Box } from "@mui/material";
 import api from "../../context/axiosInstance";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
+  const { loginSuccess } = useAuth();
 
   const goToCreateUser = () => {
     navigate("/create-user");
@@ -24,7 +24,6 @@ const LoginForm = () => {
       });
       const { token, userId } = response.data;
       loginSuccess(token, userId);
-      login();
       navigate("/tabelaDeEventos");
     } catch (error) {
       console.error("Erro ao fazer login:", error);

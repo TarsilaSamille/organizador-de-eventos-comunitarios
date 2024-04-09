@@ -1,34 +1,42 @@
 const express = require("express");
-const session = require("express-session");
 
 const mongoose = require("mongoose");
-const cors = require("cors");
 
 const app = express();
 
-// app.use(
-//   session({
-//     secret: `${process.env.SESSION_SECRET}`,
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: { secure: false },
-//   })
-// );
-
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+const cors = require("cors");
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // const uri = `mongodb://localhost:27017/eventos-comunitarios`;
-// String de conexão com o MongoDB Atlas
 const uri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.3s7ir2u.mongodb.net/eventos-comunitarios?retryWrites=true&w=majority&authSource=admin`;
 
-// Conectar ao MongoDB usando o Mongoose
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Error connecting to MongoDB:", err));
+
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+
+app.use(
+  session({
+    secret: `${process.env.SESSION_SECRET}`,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false },
+    store: MongoStore.create({
+      mongoUrl: uri,
+    }),
+  })
+);
 
 const routes = require("./routes");
 

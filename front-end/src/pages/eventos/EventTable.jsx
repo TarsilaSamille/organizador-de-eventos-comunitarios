@@ -20,10 +20,11 @@ import {
 import api from "../../context/axiosInstance";
 import { Link, useNavigate } from "react-router-dom";
 import useRequireAuth from "../../context/hooks/useRequireAuth"; // Ajuste o caminho de importação conforme necessário
-import { getUserId } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 const EventTable = () => {
   useRequireAuth();
+  const { getUserId } = useAuth();
   const userId = getUserId();
 
   const navigate = useNavigate();

@@ -3,18 +3,34 @@ import React, { createContext, useState, useContext } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem("authToken") != null
+  );
 
-  const login = () => {
+  function loginSuccess(token, userId) {
     setIsAuthenticated(true);
+    localStorage.setItem("authToken", token);
+    localStorage.setItem("userId", userId);
+  }
+
+  function logout() {
+    setIsAuthenticated(false);
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userId");
+  }
+
+  const authToken = () => {
+    return localStorage.getItem("authToken");
   };
 
-  const logout = () => {
-    setIsAuthenticated(false);
+  const getUserId = () => {
+    return localStorage.getItem("userId");
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, loginSuccess, logout, authToken, getUserId }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -22,20 +38,22 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuth = () => useContext(AuthContext);
 
-export function loginSuccess(token, userId) {
-  localStorage.setItem("authToken", token);
-  localStorage.setItem("userId", userId);
-}
+// export function loginSuccess(token, userId) {
+//   setIsAuthenticated(true);
+//   localStorage.setItem("authToken", token);
+//   localStorage.setItem("userId", userId);
+// }
 
-export function logout() {
-  localStorage.removeItem("authToken");
-  localStorage.removeItem("userId");
-}
+// export function logout() {
+//   setIsAuthenticated(false);
+//   localStorage.removeItem("authToken");
+//   localStorage.removeItem("userId");
+// }
 
-export const authToken = () => {
-  return localStorage.getItem("authToken");
-};
+// export const authToken = () => {
+//   return localStorage.getItem("authToken");
+// };
 
-export const getUserId = () => {
-  return localStorage.getItem("userId");
-};
+// export const getUserId = () => {
+//   return localStorage.getItem("userId");
+// };
