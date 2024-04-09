@@ -35,8 +35,6 @@ router.post("/", authenticateToken, async (req, res) => {
       const listaDeAjudaEntry = new ListaDeAjuda({
         item: `${novoItem.descricao} (${i})`,
         preco: novoItem.precoUnitario,
-        nomeDoIrmao: `Nome do Irmão ${i}`,
-        metodoPagamentoOuEntrega: "Pix ou entregar na data X no endereço Y",
         statusEntrega: false,
       });
       await listaDeAjudaEntry.save();

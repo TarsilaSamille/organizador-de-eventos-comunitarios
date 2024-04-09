@@ -80,23 +80,28 @@ const TabelaDeItens = ({ eventoId }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     try {
       if (isEditing) {
-        await api.put(`/api/itens/${editingItem._id}`, editingItem);
-        setItens(
-          itens.map((item) =>
-            item._id === editingItem._id ? editingItem : item
-          )
-        );
+        handleSubmitEdit();
       } else {
-        await api.post("/api/itens", editingItem);
-        setItens([...itens, editingItem]);
+        handleSubmitSave();
       }
       setIsModalOpen(false);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleSubmitSave = async () => {
+    await api.post("/api/itens", editingItem);
+    setItens([...itens, editingItem]);
+  };
+
+  const handleSubmitEdit = async () => {
+    await api.put(`/api/itens/${editingItem._id}`, editingItem);
+    setItens(
+      itens.map((item) => (item._id === editingItem._id ? editingItem : item))
+    );
   };
 
   const handleCloseModal = () => {
