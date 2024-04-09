@@ -41,6 +41,7 @@ router.get("/", authenticateToken, async (req, res) => {
 router.get("/all", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
+    // console.log(userId, req.session);
     const eventos = await Evento.find({ userId });
     res.json(eventos);
   } catch (error) {

@@ -27,8 +27,19 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ userId: user._id }, "your_secret_key", {
       expiresIn: "1h",
     });
+
+    // req.session.userId = user._id;
+
     res.json({ token, userId: user._id });
   });
 });
 
+router.post("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send({ message: "Error logging out" });
+    }
+    res.send({ message: "Logout successful" });
+  });
+});
 module.exports = router;
