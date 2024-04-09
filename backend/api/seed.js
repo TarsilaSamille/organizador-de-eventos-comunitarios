@@ -14,7 +14,7 @@ module.exports = {
     },
     {
       categoria: "Alimentos",
-      descricao: "Feijao Preto",
+      descricao: "Feijao Preto 1 kg",
       quantidade: 8,
       precoUnitario: 9.15,
     },
@@ -44,19 +44,19 @@ module.exports = {
     },
     {
       categoria: "Verduras",
-      descricao: "Cebola",
+      descricao: "Cebola 1 kg",
       quantidade: 8,
       precoUnitario: 9.99,
     },
     {
       categoria: "Verduras",
-      descricao: "Tomate",
+      descricao: "Tomate 1 kg",
       quantidade: 6,
       precoUnitario: 8.95,
     },
     {
       categoria: "Verduras",
-      descricao: "Pimentão",
+      descricao: "Pimentão 1 kg",
       quantidade: 4,
       precoUnitario: 12.99,
     },

@@ -24,7 +24,7 @@ const ListaDeAjuda = ({ eventoId }) => {
   const [editingItem, setEditingItem] = useState({
     item: "",
     preco: 0,
-    nomeDoIrmao: "",
+    nomeDoDoador: "",
     telefone: "",
     metodoPagamentoOuEntrega: "",
     statusEntrega: false,
@@ -156,7 +156,7 @@ const ListaDeAjuda = ({ eventoId }) => {
               >
                 <TableCell>{item.item}</TableCell>
                 <TableCell>R$ {item.preco.toFixed(2)}</TableCell>
-                <TableCell>{item.nomeDoIrmao}</TableCell>
+                <TableCell>{item.nomeDoDoador}</TableCell>
                 <TableCell>{item.telefone}</TableCell>
                 <TableCell>{item.metodoPagamentoOuEntrega}</TableCell>
                 <TableCell>
@@ -221,9 +221,9 @@ const ListaDeAjuda = ({ eventoId }) => {
             />
             <TextField
               label="Nome do Irmão"
-              value={editingItem ? editingItem.nomeDoIrmao : ""}
+              value={editingItem ? editingItem.nomeDoDoador : ""}
               onChange={(e) =>
-                setEditingItem({ ...editingItem, nomeDoIrmao: e.target.value })
+                setEditingItem({ ...editingItem, nomeDoDoador: e.target.value })
               }
               fullWidth
               margin="normal"

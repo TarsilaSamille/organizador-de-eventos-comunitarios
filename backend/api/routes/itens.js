@@ -74,14 +74,14 @@ router.put("/:id", authenticateToken, async (req, res) => {
   }
 });
 
-router.post("/atualizarItens", authenticateToken, async (req, res) => {
+router.post("/atualizar", authenticateToken, async (req, res) => {
   try {
     const itemsToUpdate = req.body;
     const updatePromises = itemsToUpdate.map((item) =>
       ListaDeAjuda.findByIdAndUpdate(
         item.itemId,
         {
-          nomeDoIrmao: item.nomeDoIrmao,
+          nomeDoDoador: item.nomeDoDoador,
           telefone: item.telefone,
           metodoPagamentoOuEntrega: item.pixOuEntrega,
         },

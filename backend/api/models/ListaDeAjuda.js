@@ -4,7 +4,7 @@ const listaDeAjudaSchema = new mongoose.Schema({
   eventoId: { type: mongoose.Schema.Types.ObjectId, ref: "Evento" },
   item: String,
   preco: Number,
-  nomeDoIrmao: String,
+  nomeDoDoador: String,
   telefone: String,
   metodoPagamentoOuEntrega: String,
   statusEntrega: Boolean,
