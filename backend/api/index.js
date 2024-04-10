@@ -15,8 +15,8 @@ app.use(
 );
 app.use(express.json());
 
-// const uri = `mongodb://localhost:27017/eventos-comunitarios`;
-const uri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.3s7ir2u.mongodb.net/eventos-comunitarios?retryWrites=true&w=majority&authSource=admin`;
+const uri = `mongodb://localhost:27017/eventos-comunitarios`;
+// const uri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.3s7ir2u.mongodb.net/eventos-comunitarios?retryWrites=true&w=majority&authSource=admin`;
 
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })

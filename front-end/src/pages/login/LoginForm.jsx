@@ -1,7 +1,7 @@
 // src/components/LoginForm.jsx
 import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { Button, TextField, Box } from "@mui/material";
+import { Button, TextField, Box, Grid, Typography } from "@mui/material";
 import api from "../../context/axiosInstance";
 import { useNavigate } from "react-router-dom";
 
@@ -27,40 +27,66 @@ const LoginForm = () => {
       navigate("/tabelaDeEventos");
     } catch (error) {
       console.error("Erro ao fazer login:", error);
-      // Aqui você pode lidar com erros, como mostrar uma mensagem de erro ao usuário
     }
   };
 
   return (
     <>
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        sx={{ "& > :not(style)": { m: 1, width: "25ch" } }}
-      >
-        <TextField
-          id="username"
-          label="Username"
-          variant="outlined"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <TextField
-          id="password"
-          label="Password"
-          type="password"
-          variant="outlined"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+      <Grid container spacing={2} justifyContent="center" alignItems="center">
+        <Grid item>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            sx={{ "& > :not(style)": { m: 1, width: "25ch" } }}
+          >
+            <Grid
+              container
+              spacing={2}
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Typography variant="h6">Login</Typography>
 
-        <Button type="submit" variant="contained">
-          Login
-        </Button>
-      </Box>
-      <Button onClick={goToCreateUser} variant="contained">
-        Crie Usuario
-      </Button>
+              <Grid item xs={12}>
+                <TextField
+                  id="username"
+                  label="Username"
+                  variant="outlined"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id="password"
+                  label="Password"
+                  type="password"
+                  variant="outlined"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Grid>
+            </Grid>
+            <Grid
+              container
+              spacing={2}
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Grid item xs={12}>
+                <Button fullWidth type="submit" variant="contained">
+                  Login
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Button fullWidth onClick={goToCreateUser} variant="contained">
+                  Crie Usuario
+                </Button>
+              </Grid>
+            </Grid>
+          </Box>
+        </Grid>
+      </Grid>
     </>
   );
 };
