@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 
 const useRequireAuth = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, authToken } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/login");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, authToken]);
 };
 
 export default useRequireAuth;

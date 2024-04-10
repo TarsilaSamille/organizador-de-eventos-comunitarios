@@ -24,9 +24,13 @@ router.post("/login", async (req, res) => {
     if (!isMatch)
       return res.status(401).send({ message: "Invalid username or password" });
 
-    const token = jwt.sign({ userId: user._id }, "your_secret_key", {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { userId: user._id },
+      `${process.env.SESSION_SECRET}`,
+      {
+        expiresIn: "1h",
+      }
+    );
     req.session.userId = user._id;
 
     res.json({ token, userId: user._id });

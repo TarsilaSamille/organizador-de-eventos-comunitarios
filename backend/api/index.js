@@ -32,9 +32,6 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false },
-    store: MongoStore.create({
-      mongoUrl: uri,
-    }),
   })
 );
 
