@@ -76,6 +76,7 @@ const ListaDeAjuda = ({ eventoId }) => {
 
   const getColor = (id) =>
     grupos.find((grupo) => grupo._id === id)?.cor || "#fffff";
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
