@@ -19,11 +19,8 @@ router.get("/", authenticateToken, async (req, res) => {
 router.get("/:eventoId/:grupoId?", authenticateToken, async (req, res) => {
   const { eventoId, grupoId } = req.params;
   try {
-    let query = { eventoId };
-    if (grupoId) {
-      query.grupoId = grupoId;
-    }
-    const listaDeAjuda = await ListaDeAjuda.find(query);
+    const listaDeAjuda = await ListaDeAjuda.find({ eventoId, grupoId });
+    console.log(listaDeAjuda);
     res.json(listaDeAjuda);
   } catch (error) {
     console.error(error);
