@@ -31,14 +31,6 @@ router.post("/", authenticateToken, async (req, res) => {
   const novoItem = new Item(req.body);
   try {
     await novoItem.save();
-    for (let i = 1; i <= novoItem.quantidade; i++) {
-      const listaDeAjudaEntry = new ListaDeAjuda({
-        item: `${novoItem.descricao} (${i})`,
-        preco: novoItem.precoUnitario,
-        statusEntrega: false,
-      });
-      await listaDeAjudaEntry.save();
-    }
     res.status(201).json(novoItem);
   } catch (error) {
     console.error(error);
