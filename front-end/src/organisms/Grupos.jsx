@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import EditGrupoDialog from "../atoms/modal/EditGrupoDialog.jsx";
 
-const Grupos = ({ eventoId }) => {
+const Grupos = ({ eventoId, refreshKey }) => {
   const [grupos, setGrupos] = useState([]);
   const [editingGrupo, setEditingGrupo] = useState(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -34,7 +34,7 @@ const Grupos = ({ eventoId }) => {
     };
 
     fetchGrupos();
-  }, [eventoId, isEditDialogOpen]);
+  }, [eventoId, isEditDialogOpen, refreshKey]);
   return (
     <div>
       <Typography variant="h6">Grupos</Typography>

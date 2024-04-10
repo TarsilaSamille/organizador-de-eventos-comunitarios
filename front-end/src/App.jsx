@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import CreateUserForm from "./pages/login/CreateUserForm";
 import EventForm from "./pages/eventos/EventForm";
@@ -10,34 +10,39 @@ import PaginaDeDoacao from "./pages/paginaDeDoacao/PaginaDeDoacao";
 import TabelaDeItens from "./organisms/TabelaDeItens";
 import { AuthProvider } from "./context/AuthContext";
 import ThemeProvider from "./utils/theme";
+import RefreshContext from "./context/RefreshContext";
 
 function App() {
+  const [refreshKey, setRefreshKey] = useState(0);
+
   return (
     <ThemeProvider>
       <AuthProvider>
-        <Router>
-          <div className="App">
-            <Menu />
+        <RefreshContext.Provider value={{ refreshKey, setRefreshKey }}>
+          <Router>
+            <div className="App">
+              <Menu />
 
-            <div style={{ margin: "20px" }}>
-              <Routes>
-                <Route path="/tabelaDeItens" element={<TabelaDeItens />} />
-                <Route path="/listaDeAjuda" element={<ListaDeAjuda />} />
-                <Route path="/tabelaDeEventos" element={<EventTable />} />
-                <Route path="/evento" element={<EventForm />} />
-                <Route path="/evento/:id" element={<EventForm />} />
-                <Route path="/" element={<EventTable />} />
-                <Route path="/login" element={<LoginForm />} />
-                <Route path="/create-user" element={<CreateUserForm />} />
+              <div style={{ margin: "20px" }}>
+                <Routes>
+                  <Route path="/tabelaDeItens" element={<TabelaDeItens />} />
+                  <Route path="/listaDeAjuda" element={<ListaDeAjuda />} />
+                  <Route path="/tabelaDeEventos" element={<EventTable />} />
+                  <Route path="/evento" element={<EventForm />} />
+                  <Route path="/evento/:id" element={<EventForm />} />
+                  <Route path="/" element={<EventTable />} />
+                  <Route path="/login" element={<LoginForm />} />
+                  <Route path="/create-user" element={<CreateUserForm />} />
 
-                <Route
-                  path="/paginaDeDoacao/:eventoId/:grupoId?"
-                  element={<PaginaDeDoacao />}
-                />
-              </Routes>
+                  <Route
+                    path="/paginaDeDoacao/:eventoId/:grupoId?"
+                    element={<PaginaDeDoacao />}
+                  />
+                </Routes>
+              </div>
             </div>
-          </div>
-        </Router>
+          </Router>
+        </RefreshContext.Provider>
       </AuthProvider>
     </ThemeProvider>
   );

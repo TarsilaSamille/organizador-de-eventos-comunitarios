@@ -64,8 +64,8 @@ const EventForm = () => {
   const handleAddEvento = async (evento) => {
     try {
       await api.post("/api/eventos", evento).then((response) => {
-        console.log(response);
-        navigate("/evento/" + response._id);
+        console.log(response, "response");
+        navigate("/evento/" + response.data._id);
       });
     } catch (error) {
       console.error("Error adding evento:", error);

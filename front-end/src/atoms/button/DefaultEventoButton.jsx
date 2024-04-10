@@ -1,14 +1,13 @@
 import React from "react";
 import api from "../../context/axiosInstance";
 import { styled } from "@mui/system";
-
 import { Button } from "@mui/material";
-const DefaultEventoButton = ({ eventoId }) => {
+const DefaultEventoButton = ({ eventoId, refresh }) => {
   const adicionarEventoPadrao = async () => {
     try {
       await api.post("/api/eventos/adicionarEventoPadrao/" + eventoId);
+      refresh();
       alert("Evento padrão adicionada com sucesso");
-      // Optionally, refresh the "ListaDeAjuda" component or the entire page
     } catch (error) {
       console.error("Error adding default evento:", error);
       alert("Erro ao adicionar evento padrão");

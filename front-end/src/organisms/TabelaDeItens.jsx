@@ -31,6 +31,11 @@ const TabelaDeItens = ({ eventoId }) => {
   const [deleteItemId, setDeleteItemId] = useState(null);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
 
+  const [refreshKey, setRefreshKey] = useState(0);
+  const refresh = () => {
+    setRefreshKey(refreshKey + 1);
+  };
+
   useEffect(() => {
     const fetchItens = async () => {
       try {
@@ -41,7 +46,7 @@ const TabelaDeItens = ({ eventoId }) => {
       }
     };
     fetchItens();
-  }, [eventoId, isModalOpen]);
+  }, [eventoId, isModalOpen, refreshKey]);
 
   const handleDelete = async (id) => {
     setDeleteItemId(id);
@@ -136,7 +141,7 @@ const TabelaDeItens = ({ eventoId }) => {
         <StyledButton variant="contained" color="primary" onClick={handleAdd}>
           Adicionar Item
         </StyledButton>
-        <DefaultEventoButton eventoId={eventoId} />
+        <DefaultEventoButton eventoId={eventoId} refresh={refresh} />
         <StyledButton
           variant="contained"
           color="primary"
