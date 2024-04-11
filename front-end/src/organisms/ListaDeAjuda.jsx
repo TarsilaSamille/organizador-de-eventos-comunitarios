@@ -101,7 +101,7 @@ const ListaDeAjuda = ({ eventoId }) => {
     let cssRules = "";
 
     itens.forEach((row) => {
-      const color = row.grupoId.cor.replace("#", "");
+      const color = row.grupoId.cor?.replace("#", "");
       cssRules += `.row-color-${color} { background-color: ${row.grupoId.cor}!important; }\n`;
     });
 
@@ -183,7 +183,7 @@ const ListaDeAjuda = ({ eventoId }) => {
         pageSize={50}
         rowHeight={40}
         getRowClassName={(params) =>
-          `row-color-${params.row.grupoId.cor.replace("#", "")}`
+          `row-color-${params.row.grupoId.cor?.replace("#", "")}`
         }
       />
       <Modal open={isModalOpen} onClose={handleCloseModal}>
