@@ -88,6 +88,23 @@ const PaginaDeDoacao = () => {
   }));
   const [selectedRows, setSelectedRows] = React.useState([]);
 
+  function generateCSSRules(rows) {
+    let cssRules = "";
+
+    rows.forEach((row) => {
+      const color = row.cor.replace("#", "");
+      cssRules += `.row-color-${color} { background-color: ${row.cor}!important; }\n`;
+    });
+
+    return cssRules;
+  }
+
+  const cssRules = generateCSSRules(rows);
+
+  const styleElement = document.createElement("style");
+  styleElement.textContent = cssRules;
+  document.head.appendChild(styleElement);
+
   return (
     <Box sx={{ padding: 2, margin: "auto" }}>
       <Grid container spacing={2} sx={{ padding: 3 }}>
@@ -187,11 +204,9 @@ const PaginaDeDoacao = () => {
                         paginationModel: { page: 0, pageSize: 10 },
                       },
                     }}
-                    componentsProps={{
-                      sx: {
-                        backgroundColor: "#5c1d1d",
-                      },
-                    }}
+                    getRowClassName={(params) =>
+                      `row-color-${params.row.cor.replace("#", "")}`
+                    }
                     pageSizeOptions={[10, 20]}
                     checkboxSelection
                     onRowSelectionModelChange={(ids) => {
