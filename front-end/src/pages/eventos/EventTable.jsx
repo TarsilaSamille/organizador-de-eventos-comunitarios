@@ -1,21 +1,11 @@
 import React, { useState, useEffect } from "react";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
   Button,
-  Typography,
-  Box,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Grid,
 } from "@mui/material";
 import api from "../../context/axiosInstance";
 import { Link, useNavigate } from "react-router-dom";
@@ -24,16 +14,13 @@ import { useAuth } from "../../context/AuthContext";
 
 const EventTable = () => {
   useRequireAuth();
-  const { getUserId } = useAuth();
-  const userId = getUserId();
-
   const navigate = useNavigate();
-
-  const [eventos, setEventos] = useState([]);
 
   const [open, setOpen] = useState(false);
   const [selectedEventoId, setSelectedEventoId] = useState(null);
-
+  const [eventos, setEventos] = useState([]);
+  const { getUserId } = useAuth();
+  const userId = getUserId();
   useEffect(() => {
     const fetchEventos = async () => {
       try {
@@ -69,86 +56,107 @@ const EventTable = () => {
 
   return (
     <div>
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        sx={{
-          margin: "16px 16px", // Add margin to the top and bottom
-        }}
-      >
-        <Typography variant="h6">Tabela de Eventos</Typography>
-        <Button
-          variant="contained"
-          color="secondary"
-          component={Link}
-          to="/evento"
-          style={{ marginBottom: "10px" }}
-        >
-          Adicionar Evento
-        </Button>
-      </Box>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Nome do Evento</TableCell>
-              <TableCell>Nome do Organizador</TableCell>
-              <TableCell>Telefone do Organizador</TableCell>
-              <TableCell>Ações</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
+      <div className="flex items-center justify-between mb-3">
+        <div></div>
+        <Link component={Link} to="/evento">
+          <button className="px-4 py-2 bg-purple-500 text-white rounded-md">
+            Adicionar Evento
+          </button>
+        </Link>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Nome do Evento
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Nome do Organizador
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Telefone do Organizador
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Ações
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
             {eventos.map((evento) => (
-              <TableRow key={evento.id}>
-                <TableCell>{evento.nome}</TableCell>
-                <TableCell>{evento.nomeDoOrganizador}</TableCell>
-                <TableCell>{evento.telefoneDoOrganizador}</TableCell>
-                <TableCell>
-                  <Grid container spacing={2} justifyContent="space_between">
-                    <Grid item>
-                      <Button onClick={() => navigate(`/evento/${evento._id}`)}>
-                        Editar
-                      </Button>
-                    </Grid>
-                    <Grid item>
-                      <Button onClick={() => handleClickOpen(evento._id)}>
-                        Deletar
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </TableCell>
-              </TableRow>
+              <tr key={evento.id}>
+                <td className="px-6 py-4 whitespace-nowrap">{evento.nome}</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {evento.nomeDoOrganizador}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {evento.telefoneDoOrganizador}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => navigate(`/evento/${evento._id}`)}
+                      className="px-4 py-2 bg-purple-500 text-white rounded-md"
+                    >
+                      Editar{" "}
+                    </button>
+                    <button
+                      className="px-4 py-2 bg-red-500 text-white rounded-md"
+                      onClick={() => handleClickOpen(evento._id)}
+                    >
+                      Deletar
+                    </button>
+                  </div>
+                </td>
+              </tr>
             ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Confirmar Deleção"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Você tem certeza de que deseja deletar este evento?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <button
+              className="px-4 py-2 bg-red-500 text-white rounded-md"
+              onClick={() => handleClose()}
+            >
+              Cancelar
+            </button>
 
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Confirmar Deleção"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Você tem certeza de que deseja deletar este evento?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancelar
-          </Button>
-          <Button
-            onClick={() => handleDeleteEvento(selectedEventoId)}
-            color="primary"
-            autoFocus
-          >
-            Confirmar
-          </Button>
-        </DialogActions>
-      </Dialog>
+            <button
+              onClick={() => handleDeleteEvento(selectedEventoId)}
+              className="px-4 py-2 bg-green-500 text-white rounded-md"
+            >
+              Confirmar
+            </button>
+          </DialogActions>
+        </Dialog>
+      </div>
     </div>
   );
 };

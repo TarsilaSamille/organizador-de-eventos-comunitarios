@@ -11,6 +11,7 @@ import TabelaDeItens from "./organisms/TabelaDeItens";
 import { AuthProvider } from "./context/AuthContext";
 import ThemeProvider from "./utils/theme";
 import RefreshContext from "./context/RefreshContext";
+import { Dashboard } from "./pages/eventos/Dashboard";
 
 function App() {
   const [refreshKey, setRefreshKey] = useState(0);
@@ -23,14 +24,16 @@ function App() {
             <div className="App">
               <Menu />
 
-              <div style={{ margin: "20px" }}>
+              <div>
                 <Routes>
+                  <Route path="/dashboard" element={<Dashboard />} />
+
                   <Route path="/tabelaDeItens" element={<TabelaDeItens />} />
                   <Route path="/listaDeAjuda" element={<ListaDeAjuda />} />
                   <Route path="/tabelaDeEventos" element={<EventTable />} />
                   <Route path="/evento" element={<EventForm />} />
                   <Route path="/evento/:id" element={<EventForm />} />
-                  <Route path="/" element={<EventTable />} />
+                  <Route path="/" element={<Dashboard />} />
                   <Route path="/login" element={<LoginForm />} />
                   <Route path="/create-user" element={<CreateUserForm />} />
 

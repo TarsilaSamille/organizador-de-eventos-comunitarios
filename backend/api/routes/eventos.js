@@ -49,6 +49,42 @@ router.get("/all", authenticateToken, async (req, res) => {
   }
 });
 
+router.get("/progress", authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const eventos = await Evento.find({ userId });
+
+    const eventosComProgresso = await Promise.all(
+      eventos.map(async (evento) => {
+        const itens = await ListaDeAjuda.find({
+          eventoId: evento._id,
+        });
+        const itensConfirmados = await ListaDeAjuda.find({
+          eventoId: evento._id,
+          statusEntrega: true,
+        });
+
+        const valorTotal = itens.reduce((total, item) => total + item.preco, 0);
+
+        const valorTotalConfirmados = itensConfirmados.reduce(
+          (total, item) => total + item.preco,
+          0
+        );
+        return {
+          title: evento.nome,
+          progress: (valorTotalConfirmados / valorTotal).toFixed(2),
+          goal: valorTotal.toFixed(2),
+        };
+      })
+    );
+
+    res.json(eventosComProgresso);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Erro ao buscar progresso dos eventos" });
+  }
+});
+
 router.get("/:id", authenticateToken, async (req, res) => {
   try {
     const evento = await Evento.findById(req.params.id);

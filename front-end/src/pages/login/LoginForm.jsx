@@ -24,7 +24,7 @@ const LoginForm = () => {
       });
       const { token, userId } = response.data;
       loginSuccess(token, userId);
-      navigate("/tabelaDeEventos");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Erro ao fazer login:", error);
     }

@@ -73,8 +73,9 @@ const EventForm = () => {
 
   const handleEditEvento = async (evento) => {
     try {
-      await api.put(`/api/eventos/${evento._id}`, evento).then((response) => {
-      });
+      await api
+        .put(`/api/eventos/${evento._id}`, evento)
+        .then((response) => {});
       alert("Evento atualizado com sucesso");
     } catch (error) {
       console.error("Error editing evento:", error);
@@ -82,7 +83,7 @@ const EventForm = () => {
   };
 
   return (
-    <>
+    <div class="md:mx-40 ">
       <Box
         display="flex"
         alignItems="center"
@@ -264,14 +265,14 @@ const EventForm = () => {
               </Button>
             </Grid>{" "}
           </Grid>
-        </Grid>
+        </Grid>{" "}
       </form>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={12}>
           {id ? <TabbedEventMenu id={id} /> : <></>}
         </Grid>
       </Grid>
-    </>
+    </div>
   );
 };
 
