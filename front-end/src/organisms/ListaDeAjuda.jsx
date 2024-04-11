@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from "react";
 import api from "../context/axiosInstance";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-  Paper,
   Modal,
   Box,
   TextField,
   Button,
   Checkbox,
   FormControlLabel,
+  Typography,
 } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import { DataGrid } from "@mui/x-data-grid";
 
 const ListaDeAjuda = ({ eventoId }) => {
   const [itens, setItens] = useState([]);
@@ -34,23 +28,14 @@ const ListaDeAjuda = ({ eventoId }) => {
   const [grupos, setGrupos] = useState([]);
 
   useEffect(() => {
-    const fetchGrupos = async () => {
-      try {
-        const response = await api.get(`/api/grupos/${eventoId}`);
-        setGrupos(response.data);
-      } catch (error) {
-        console.error("Error fetching grupos:", error);
-      }
-    };
-
-    fetchGrupos();
-  }, [eventoId]); // Depend on eventoId to refetch when it changes
-
-  useEffect(() => {
     const fetchItens = async () => {
       try {
         const response = await api.get("/api/listaDeAjuda/" + eventoId);
-        setItens(response.data);
+        const itensComId = response.data.map((item) => ({
+          ...item,
+          id: item._id,
+        }));
+        setItens(itensComId);
       } catch (error) {
         console.error("Error fetching Lista de Ajuda:", error);
       }
@@ -112,10 +97,66 @@ const ListaDeAjuda = ({ eventoId }) => {
       alert("Erro ao excluir toda a lista de ajuda");
     }
   };
+  function generateCSSRules(rows) {
+    let cssRules = "";
+
+    itens.forEach((row) => {
+      const color = row.grupoId.cor.replace("#", "");
+      cssRules += `.row-color-${color} { background-color: ${row.grupoId.cor}!important; }\n`;
+    });
+
+    return cssRules;
+  }
+
+  const cssRules = generateCSSRules(itens);
+
+  const styleElement = document.createElement("style");
+  styleElement.textContent = cssRules;
+  document.head.appendChild(styleElement);
+
+  const columns = [
+    { field: "item", headerName: "Item", flex: 1 },
+    { field: "preco", headerName: "Preço", flex: 1 },
+    { field: "nomeDoDoador", headerName: "Nome do Irmão", flex: 1 },
+    { field: "telefone", headerName: "Telefone", flex: 1 },
+    {
+      field: "metodoPagamentoOuEntrega",
+      headerName: "Pix ou Entrega",
+      flex: 1,
+    },
+    {
+      field: "statusEntrega",
+      headerName: "Entregue / Pix Feito",
+      flex: 1,
+      renderCell: (params) => (params.value ? <CheckIcon /> : <CloseIcon />),
+    },
+    {
+      field: "actions",
+      headerName: "Ações",
+      flex: 1,
+      renderCell: (params) => (
+        <>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleEdit(params.row)}
+          >
+            Editar
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => handleDelete(params.row._id)}
+          >
+            Excluir
+          </Button>
+        </>
+      ),
+    },
+  ];
 
   return (
     <div>
-      <Typography variant="h4" gutterBottom></Typography>
       <Box
         display="flex"
         alignItems="center"
@@ -134,56 +175,17 @@ const ListaDeAjuda = ({ eventoId }) => {
           Zerar Lista de Ajuda
         </Button>
       </Box>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Item</TableCell>
-              <TableCell>Preço</TableCell>
-              <TableCell>Nome do Irmão</TableCell>
-              <TableCell>Telefone</TableCell>
-              <TableCell>Pix ou Entrega</TableCell>
-              <TableCell>Entregue / Pix Feito</TableCell>
-              <TableCell>Ações</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {itens.map((item, index) => (
-              <TableRow
-                key={index}
-                style={{
-                  backgroundColor: getColor(item.grupoId),
-                }}
-              >
-                <TableCell>{item.item}</TableCell>
-                <TableCell>R$ {item.preco.toFixed(2)}</TableCell>
-                <TableCell>{item.nomeDoDoador}</TableCell>
-                <TableCell>{item.telefone}</TableCell>
-                <TableCell>{item.metodoPagamentoOuEntrega}</TableCell>
-                <TableCell>
-                  {item.statusEntrega ? <CheckIcon /> : <CloseIcon />}
-                </TableCell>{" "}
-                <TableCell>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleEdit(item)}
-                  >
-                    Editar
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={() => handleDelete(item._id)}
-                  >
-                    Excluir
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+
+      <DataGrid
+        autoHeight
+        rows={itens}
+        columns={columns}
+        pageSize={50}
+        rowHeight={40}
+        getRowClassName={(params) =>
+          `row-color-${params.row.grupoId.cor.replace("#", "")}`
+        }
+      />
       <Modal open={isModalOpen} onClose={handleCloseModal}>
         <Box
           sx={{

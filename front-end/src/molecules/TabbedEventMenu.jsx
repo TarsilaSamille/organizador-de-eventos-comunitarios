@@ -4,7 +4,6 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grupos from "../organisms/Grupos"; // Ajuste o caminho conforme necessário
-import LinkParaPaginaDeDoacao from "../organisms/LinkParaPaginaDeDoacao"; // Adjust the import path as necessary
 import TabelaDeItens from "../organisms/TabelaDeItens"; // Adjust the import path as necessary
 import ListaDeAjuda from "../organisms/ListaDeAjuda"; // Adjust the import path as necessary
 
@@ -53,7 +52,6 @@ export default function TabbedEventMenu({ id }) {
           <Tab label="Tabela De Itens" {...a11yProps(0)} />
           <Tab label="Grupos" {...a11yProps(1)} />
           <Tab label="Lista De Ajuda" {...a11yProps(2)} />
-          <Tab label="Links Página De Doaçao" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -64,9 +62,6 @@ export default function TabbedEventMenu({ id }) {
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         <ListaDeAjuda eventoId={id} />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
-        <LinkParaPaginaDeDoacao eventoId={id} />
       </CustomTabPanel>
     </Box>
   );

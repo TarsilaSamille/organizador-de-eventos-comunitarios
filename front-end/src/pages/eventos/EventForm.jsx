@@ -64,7 +64,6 @@ const EventForm = () => {
   const handleAddEvento = async (evento) => {
     try {
       await api.post("/api/eventos", evento).then((response) => {
-        console.log(response, "response");
         navigate("/evento/" + response.data._id);
       });
     } catch (error) {
@@ -75,7 +74,6 @@ const EventForm = () => {
   const handleEditEvento = async (evento) => {
     try {
       await api.put(`/api/eventos/${evento._id}`, evento).then((response) => {
-        console.log(response);
       });
       alert("Evento atualizado com sucesso");
     } catch (error) {

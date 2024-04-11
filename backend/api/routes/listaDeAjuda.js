@@ -22,7 +22,6 @@ router.get("/:eventoId/:grupoId?", authenticateToken, async (req, res) => {
     const listaDeAjuda = await ListaDeAjuda.find(
       grupoId ? { eventoId, grupoId } : { eventoId }
     ).populate("grupoId", "nome cor");
-    console.log(listaDeAjuda);
     res.json(listaDeAjuda);
   } catch (error) {
     console.error(error);
