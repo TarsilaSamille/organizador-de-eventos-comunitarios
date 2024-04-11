@@ -101,8 +101,8 @@ const ListaDeAjuda = ({ eventoId }) => {
     let cssRules = "";
 
     itens.forEach((row) => {
-      const color = row.grupoId.cor?.replace("#", "");
-      cssRules += `.row-color-${color} { background-color: ${row.grupoId.cor}!important; }\n`;
+      const color = row.grupoId?.cor?.replace("#", "");
+      cssRules += `.row-color-${color} { background-color: ${row.grupoId?.cor}!important; }\n`;
     });
 
     return cssRules;
