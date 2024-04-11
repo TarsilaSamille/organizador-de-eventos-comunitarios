@@ -72,12 +72,19 @@ const PaginaDeDoacao = () => {
       width: 110,
       valueFormatter: (preco) => `R$ ${preco}`,
     },
+    {
+      field: "grupo",
+      headerName: "Grupo",
+      width: 110,
+    },
   ];
 
   const rows = itens.map((item) => ({
     id: item._id,
     item: item.item,
     preco: item.preco.toFixed(2),
+    grupo: item.grupoId.nome,
+    cor: item.grupoId.cor,
   }));
   const [selectedRows, setSelectedRows] = React.useState([]);
 
@@ -178,6 +185,11 @@ const PaginaDeDoacao = () => {
                     initialState={{
                       pagination: {
                         paginationModel: { page: 0, pageSize: 10 },
+                      },
+                    }}
+                    componentsProps={{
+                      sx: {
+                        backgroundColor: "#5c1d1d",
                       },
                     }}
                     pageSizeOptions={[10, 20]}
