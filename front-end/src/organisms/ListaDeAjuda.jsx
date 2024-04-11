@@ -25,7 +25,6 @@ const ListaDeAjuda = ({ eventoId }) => {
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [grupos, setGrupos] = useState([]);
 
   useEffect(() => {
     const fetchItens = async () => {
@@ -34,6 +33,7 @@ const ListaDeAjuda = ({ eventoId }) => {
         const itensComId = response.data.map((item) => ({
           ...item,
           id: item._id,
+          grupoNome: item.grupoId.nome,
         }));
         setItens(itensComId);
       } catch (error) {
@@ -58,9 +58,6 @@ const ListaDeAjuda = ({ eventoId }) => {
       console.error("Error deleting item:", error);
     }
   };
-
-  const getColor = (id) =>
-    grupos.find((grupo) => grupo._id === id)?.cor || "#fffff";
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -115,8 +112,9 @@ const ListaDeAjuda = ({ eventoId }) => {
   document.head.appendChild(styleElement);
 
   const columns = [
-    { field: "item", headerName: "Item", flex: 1 },
+    { field: "item", headerName: "Item", flex: 1, minWidth: 180 },
     { field: "preco", headerName: "Preço", flex: 1 },
+    { field: "grupoNome", headerName: "Grupo", flex: 1, minWidth: 100 },
     { field: "nomeDoDoador", headerName: "Nome do Irmão", flex: 1 },
     { field: "telefone", headerName: "Telefone", flex: 1 },
     {

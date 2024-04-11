@@ -66,9 +66,12 @@ router.put("/:id", authenticateToken, async (req, res) => {
   }
 });
 
-router.post("/atualizar", authenticateToken, async (req, res) => {
+const Evento = require("../models/Evento");
+
+router.post("/atualizar/:eventoId", async (req, res) => {
   try {
     const itemsToUpdate = req.body;
+    const evento = await Evento.find({ _id: req.params.eventoId });
     const updatePromises = itemsToUpdate.map((item) =>
       ListaDeAjuda.findByIdAndUpdate(
         item.itemId,
@@ -81,7 +84,10 @@ router.post("/atualizar", authenticateToken, async (req, res) => {
       )
     );
     await Promise.all(updatePromises);
-    res.status(200).json({ message: "Itens atualizados com sucesso" });
+    res.status(200).json({
+      message: "Itens atualizados com sucesso",
+      evento: evento,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Erro ao atualizar itens" });
